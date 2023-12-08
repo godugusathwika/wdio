@@ -9,7 +9,7 @@ class GenieloginPage{
         return $("//input[@id='username']")
     }
     get Password(){
-        return $("(//input[@id='password'])[1]")
+        return $("(//input[@type='password'])[1]")
 
     }
     get CheckBox(){
@@ -18,12 +18,28 @@ class GenieloginPage{
     get SigninButton(){
         return $("//button[@class='btn btn-primary sign-in-button']")
     }
-    // get ForgotPassword(){
-    //     return $("//a[text()='Forgot password?']")
-    // }
-    // get RestPage(){
-    //     return $("//h3[text()='Reset your password']")
-    // }
+    get ErrorMessage(){
+        return $("(//div[@aria-hidden='false'])[1]")
+    }
+    get ForgotPassword(){
+        return $("//a[text()='Forgot password?']")
+     }
+     get RestPage(){
+        return $("//h3[text()='Reset your password']")
+     }
+    get NewRegister(){
+        return $("//a[text()='Register a new account']")
+
+    }
+    get LOGIN(){
+        return $("//a[@class='login-register-link nav-bar-items']")
+    }
+    get Registration(){
+        return $("//h3[text()='Caregiver Registration']")
+    }
+    get loginpage(){
+        return $("(//span[@class='hidden-sm nav-bar-items'])[4]")
+    }
 
 }
 module.exports=new GenieloginPage();
