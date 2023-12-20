@@ -1,3 +1,6 @@
+
+const { generate } = require('multiple-cucumber-html-reporter');
+const { removeSync } = require('fs-extra');
 exports.config = {
     //
     // ====================
@@ -110,6 +113,7 @@ exports.config = {
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
     framework: 'cucumber',
+    
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -123,14 +127,14 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
-    reporters: [['allure', {
-        outputDir: 'allure-results',
-        disableWebdriverStepsReporting: true,
-        disableWebdriverScreenshotsReporting: true,
-    }]],
+    reporters: ['spec',['allure', {outputDir: 'allure-results'}]],
+    
+    // reporters: [['allure', {
+    //     outputDir: 'allure-results',
+    //     disableWebdriverStepsReporting: false,
+    //     disableWebdriverScreenshotsReporting: false,
+    // }]],
 
-    //
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
@@ -156,7 +160,7 @@ exports.config = {
         // <boolean> Enable this config to treat undefined definitions as warnings.
         ignoreUndefinedDefinitions: false
     },
-    
+
     //
     // =====
     // Hooks
@@ -171,9 +175,31 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      */
     // onPrepare: function (config, capabilities) {
+        //  onPrepare: () => {
+            // Remove the `.tmp/` folder that holds the json and report files
+            // removeSync('.tmp/');
+        //   },
+          /**
+           * Gets executed after all workers got shut down and the process is about to exit.
+           */
+        //   onComplete: () => {
+            // Generate the report when it all tests are done
+            // generate({
+              // Required
+              // This part needs to be the same path where you store the JSON files
+              // default = '.tmp/json/'
+    //           jsonDir: '.tmp/json/',
+    //           reportPath: '.tmp/report/',
+    //           // for more options see
+    //    // https://github.com/wswebcreation/multiple-cucumber-html-reporter#options
+    //         });
+    //     }
+    // }
+        
+
     // },
     /**
-     * Gets executed before a worker process is spawned and can be used to initialise specific service
+     * Gets executed before a worker process is spawned and can be used to initialize specific service
      * for that worker as well as modify runtime environments in an async fashion.
      * @param  {string} cid      capability id (e.g 0-0)
      * @param  {object} caps     object containing capabilities for session that will be spawn in the worker
@@ -255,8 +281,11 @@ exports.config = {
      * @param {number}             result.duration  duration of scenario in milliseconds
      * @param {object}             context          Cucumber World object
      */
-    // afterStep: function (step, scenario, result, context) {
-    // },
+    afterStep: async function (step, scenario, result, context) {
+        if (!result.passed) {
+            await browser.takeScreenshot();
+          }
+    },
     /**
      *
      * Runs after a Cucumber Scenario.
@@ -320,5 +349,17 @@ exports.config = {
     * @param {string} newSessionId session ID of the new session
     */
     // onReload: function(oldSessionId, newSessionId) {
+    // }
+    /**
+    * Hook that gets executed before a WebdriverIO assertion happens.
+    * @param {object} params information about the assertion to be executed
+    */
+    // beforeAssertion: function(params) {
+    // }
+    /**
+    * Hook that gets executed after a WebdriverIO assertion happened.
+    * @param {object} params information about the assertion that was executed, including its results
+    */
+    // afterAssertion: function(params) {
     // }
 }

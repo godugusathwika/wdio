@@ -4,15 +4,15 @@ Feature: Genie Login Functionality
   Scenario: Login and register the genie portal with invalid user name and password
     Given User is on the genie login page
     Then And click on the login and register
-    And User enters the invalid user name as "sathwika@123"
-    And invalid password as "sathwika123"
+    When User enters the invalid user name as "sssssss@123"
+    When invalid password as "asdfghjk"
     Then user click on the remember me check box
     Then click on sign in button
     When user enters the invalid credentials error massage will disply
   @invalid2
   Scenario: login and register the genie portal with valid user name and invalid password
     When user enters the valid username as "chandu12@gmail.com"
-    And invalid password as "sathwika123"
+    When invalid password as "asdfghjk"
     Then user click on the remember me check box
     Then click on sign in button
     When user enters the invalid credentials error massage will disply
@@ -24,9 +24,9 @@ Feature: Genie Login Functionality
      Then And click on the login and register
 
   @valid3
-  Scenario: login and register the genie portal with valid user name
+  Scenario: login and register the genie portal with valid user name and valid password
     When user enters the valid username as "chandu12@gmail.com"
-    And valid password as "Chandu@123"
+    When valid password as "Chandu@123"
     Then user click on the remember me check box
     Then click on sign in button
     When verify the login page

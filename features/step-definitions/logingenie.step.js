@@ -1,47 +1,94 @@
-
 const { Given, When, Then } = require('@wdio/cucumber-framework');
 const logingenie = require('../pageobjects/logingenie.page');
+ const Timeouts = require('../pageobjects/Timeouts.page');
+ const variables= require('../variables/credentials.json');
 //1
 Given(/^user is on the genie login page$/, async() => {
-    browser.url("http://geniehealthjobsqa-env-4.eba-kmcgagjd.us-west-1.elasticbeanstalk.com/#/job")
-});
-
-Then(/^user click on the login and register$/, async() => {
+   await logingenie.WebPage();
+   await Timeouts.waitTime(); 
     await browser.maximizeWindow();
-    await browser.pause(1000);
-   (await logingenie.LoginAndRegister).moveTo();
+});
+Then(/^user click on the login and register$/, async() => {
+    await Timeouts.waitTime(); 
+   await logingenie.LoginAndRegister.moveTo();
+});
+
+Then(/^user enters the Invalid user name$/,async () => {
+    await Timeouts.waitTime(); 
+    await logingenie.UserName.setValue(variables.InvalidUserName);
+});
+
+Then(/^user enters Invalid password$/,async () => {
+    await Timeouts.waitTime(); 
+    await logingenie.Password.setValue(variables.InvalidPassword)
+});
+When(/^User click on the remember me check box$/, async() => {
+    await Timeouts.waitTime(); 
+    await logingenie.CheckBox.click();
+});
+When(/^Click on sign in button$/,async () => {
+    await Timeouts.waitTime(); 
+    await logingenie.SigninButton.click();
+});
+Then(/^User enters the invalid credentials error massage will disply$/,async () => {
+    await Timeouts.waitTime(); 
+    await expect(logingenie.ErrorMassage).toHaveTextContaining("Failed to sign in! Please check your credentials and try again");
+    await Timeouts.waitTime(); 
+    console.log(await logingenie.ErrorMassage.getText());
+});
+When(/^User click on forgot password button$/,async () => {
+    await Timeouts.waitTime(); 
+    await logingenie.ForgotPassword.click();
+});
+Then(/^User enter the Reset password page verfy it$/, async() => {
+    await Timeouts.waitTime(); 
+   console.log( await logingenie.RestPage.getText());
+   
 });
 
 
-Then(/^enters the invalid user name as "([^"]*)"$/,async (username1) => {
-    await browser.pause(1000);
-    (await logingenie.UserName).setValue(username1)
+Then(/^user enter the Reset Email$/, async() => {
+    await Timeouts.waitTime(); 
+    await logingenie.ResetEmail.setValue(variables.ResetPassword);
+    await Timeouts.waitTime(); 
+    await logingenie.Resetpassword.click();
+    await Timeouts.waitTime(); 
+    console.log(await logingenie.ErrorResetMassage.getText());
+    await Timeouts.waitTime(); 
+    await browser.back();
+	
 });
 
-Then(/^Invalid password as "([^"]*)"$/, async(password1) => {
-    await browser.pause(1000);
-    (await logingenie.Password).setValue(password1)
+When(/^User click on the register$/, async() => {
+    await Timeouts.waitTime(); 
+    await logingenie.Login.moveTo();
 });
-Then(/^User click on the remember me check box$/, async() => {
-    await browser.pause(1000);
-    await logingenie.CheckBox.click()
+When(/^User click on the Register the new account$/, async() => {
+    await Timeouts.waitTime(); 
+    await logingenie.NewRegister.click();
 });
-
-Then(/^Click on sign in button$/,async () => {
-    await browser.pause(1000);
-    await logingenie.SigninButton.click()
+Then(/^User enter on Caregiver Registration page verify it$/,async () => {
+    await Timeouts.waitTime(); 
+  console.log( await logingenie.Registration.getText());
+  await Timeouts.waitTime(); 
+  await browser.back();
 });
-
-
 //2
-When(/^User enters the valid username as "([^"]*)"$/, async(username1) => {
-    await browser.pause(3000);
-    (await logingenie.UserName).setValue(username1)
+
+Then(/^user enters the Valid user name$/,async () => {
+    await Timeouts.waitTime(); 
+    await logingenie.UserName.setValue(variables.Validusername);
 });
 //4
-When(/^User enters the valid password as "([^"]*)"$/,async (password1) => {
-	await browser.pause(3000);
-	(await logingenie.Password).setValue(password1)
-    await browser.pause(3000);
+
+Then(/^user enters Valid password$/,async () => {
+    await Timeouts.waitTime(); 
+	await logingenie.Password.setValue(variables.ValidPassword);
+});
+
+
+Then(/^User verify the login page$/, async() => {
+    await Timeouts.waitTime(); 
+    console.log(await logingenie.Loginpage.getText());
 });
 

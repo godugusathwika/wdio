@@ -1,7 +1,7 @@
 class GenieloginPage{
-    // get WebPage(){
-    //     return browser.url("http://geniehealthjobsqa-env-4.eba-kmcgagjd.us-west-1.elasticbeanstalk.com/#/register")
-    // }
+     get WebPage(){
+        return browser.url("http://geniehealthjobsqa-env-4.eba-kmcgagjd.us-west-1.elasticbeanstalk.com/#/register")
+    }
     get LoginAndRegister(){
         return $("//a[text()='Login/Register']")
     }
@@ -18,11 +18,11 @@ class GenieloginPage{
     get SigninButton(){
         return $("//button[@class='btn btn-primary sign-in-button']")
     }
-    get ErrorMessage(){
+    get ErrorMassage(){
         return $("(//div[@aria-hidden='false'])[1]")
     }
     get ForgotPassword(){
-        return $("//a[text()='Forgot password?']")
+       return $("//a[text()='Forgot password?']")
      }
      get RestPage(){
         return $("//h3[text()='Reset your password']")

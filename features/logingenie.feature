@@ -4,30 +4,36 @@ Feature: Genie login Functionality
   Scenario: Login and register the genie portal with invalid user name and password
     Given user is on the genie login page
     Then user click on the login and register
-    And enters the invalid user name as "sathwika@123"
-    And Invalid password as "sathwika123"
-    Then User click on the remember me check box
-    Then Click on sign in button
+    Then user enters the Invalid user name 
+    Then user enters Invalid password 
+    When  User click on the remember me check box
+    When Click on sign in button
 
   @invalid2
   Scenario: login and register the genie portal with valid user name and invalid password
-    When User enters the valid username as "chandu12@gmail.com"
-    And Invalid password as "sathwika123"
-    Then User click on the remember me check box
-    Then Click on sign in button
+     Then user enters the Valid user name 
+    Then user enters Invalid password 
+    When User click on the remember me check box
+    When Click on sign in button
 
   @invalid3
   Scenario: login and register the genie portal with valid username only
-    When User enters the valid username as "chandu12@gmail.com"
-    Then User click on the remember me check box
-    Then Click on sign in button
+    Then user enters the Invalid user name 
+    When User click on the remember me check box
+    When Click on sign in button
+    When User enters the invalid credentials error massage will disply
+    When User click on forgot password button
+    Then User enter the Reset password page verfy it
+    Then user enter the Reset Email 
+    When User click on the register
+    When User click on the Register the new account
+    Then User enter on Caregiver Registration page verify it
+    When user click on the login and register
 
- 
-
-    @valid4
-    Scenario:login and register the valid user name and valid password
-      When User enters the valid username as "chandu12@gmail.com"
-    When User enters the valid password as "Chandu@123"
-   Then User click on the remember me check box
-    Then Click on sign in button
-
+  @valid
+  Scenario: login and register the valid user name and valid password
+    Then user enters the Valid user name 
+    Then user enters Valid password 
+    When User click on the remember me check box
+    When Click on sign in button
+    Then User verify the login page
