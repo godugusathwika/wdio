@@ -1,4 +1,3 @@
-
 const { generate } = require('multiple-cucumber-html-reporter');
 const { removeSync } = require('fs-extra');
 exports.config = {
@@ -104,8 +103,8 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [],
-    //
+    services: ['vite'],
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -127,13 +126,19 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec',['allure', {outputDir: 'allure-results'}]],
-    
-    // reporters: [['allure', {
-    //     outputDir: 'allure-results',
-    //     disableWebdriverStepsReporting: false,
-    //     disableWebdriverScreenshotsReporting: false,
-    // }]],
+
+    // reporters: ['spec','cucumberjs-json'],
+    reporters: [
+        // Like this with the default options, see the options below
+        'cucumberjs-json',
+
+        // OR like this if you want to set the folder and the language
+        [ 'cucumberjs-json', {
+                jsonFolder: '.tmp/new/',
+                language: 'en',
+            },
+        ],
+    ],
 
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -174,30 +179,25 @@ exports.config = {
      * @param {object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    // onPrepare: function (config, capabilities) {
-        //  onPrepare: () => {
-            // Remove the `.tmp/` folder that holds the json and report files
-            // removeSync('.tmp/');
-        //   },
-          /**
-           * Gets executed after all workers got shut down and the process is about to exit.
-           */
-        //   onComplete: () => {
-            // Generate the report when it all tests are done
-            // generate({
-              // Required
-              // This part needs to be the same path where you store the JSON files
-              // default = '.tmp/json/'
-    //           jsonDir: '.tmp/json/',
-    //           reportPath: '.tmp/report/',
-    //           // for more options see
-    //    // https://github.com/wswebcreation/multiple-cucumber-html-reporter#options
-    //         });
-    //     }
-    // }
-        
+    onPrepare: () => {
+        // Remove the `.tmp/` folder that holds the json and report files
+        removeSync('.tmp/');
+      },
+      /**
+   * Gets executed after all workers got shut down and the process is about to exit.
+   */
+  onComplete: () => {
+    // Generate the report when it all tests are done
+    generate({
+      // Required
+      // This part needs to be the same path where you store the JSON files
+      // default = '.tmp/json/'
+      jsonDir: '.tmp/json/',
+      reportPath: '.tmp/report/',
+      // for more options see
+    });
+  },
 
-    // },
     /**
      * Gets executed before a worker process is spawned and can be used to initialize specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -281,6 +281,9 @@ exports.config = {
      * @param {number}             result.duration  duration of scenario in milliseconds
      * @param {object}             context          Cucumber World object
      */
+   
+    //afterStep: function (step, scenario, result, context) {
+    // },
     afterStep: async function (step, scenario, result, context) {
         if (!result.passed) {
             await browser.takeScreenshot();

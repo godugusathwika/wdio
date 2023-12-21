@@ -4,8 +4,7 @@ class Timeouts{
     await Element.waitForDisplayed();
     await Element.Click();
     }
-    async waitTime()
-    {
+    async waitTime() {
         await browser.pause(2000)    }
 }
 module.exports=new Timeouts();
