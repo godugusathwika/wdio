@@ -27,6 +27,7 @@
     "wdio-wait-for": "^3.0.10"
   },
   "dependencies": {
-    "@rpii/wdio-html-reporter-pdf": "^8.0.0"
+    "@rpii/wdio-html-reporter-pdf": "^8.0.0",
+    "chromedriver": "^120.0.1"
   }
 }

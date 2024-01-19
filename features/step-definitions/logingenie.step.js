@@ -14,6 +14,32 @@ When(/^user click on the login and register$/, async() => {
    await logingenie.LoginAndRegister.moveTo();
 });
 
+When(/^user click on sign button without entering information in the input fields$/,async () => {
+    await Timeouts.waitTime();
+    await logingenie.SigninButton.click();
+
+});
+
+Then(/^user Verify the error message$/,async () => {
+    await Timeouts.waitTime();
+    await expect(logingenie.ErrorMassage).toHaveTextContaining("Failed to sign in!");
+    await Timeouts.waitTime(); 
+    console.log(await logingenie.ErrorMassage.getText());
+    cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
+
+});
+
+Then(/^user enters email using space$/, async() => {
+    await Timeouts.waitTime();
+    await logingenie.UserName.setValue(variables.spaceemail);
+
+});
+
+Then(/^user enters password using space$/,async () => {
+    await Timeouts.waitTime();
+    await logingenie.Password.setValue(variables.spacepassword);
+});
+
 Then(/^user enters the Invalid user name$/,async () => {
     await Timeouts.waitTime(); 
     await logingenie.UserName.setValue(variables.InvalidUserName);
@@ -115,13 +141,12 @@ Then(/^User enter on Caregiver Registration page verify it$/,async () => {
   cucumberJson.attach(await browser.takeScreenshot(), 'image/png'); 
   await browser.back();
 });
-//validusername2
 
 Then(/^user enters the Valid user name$/,async () => {
     await Timeouts.waitTime(); 
     await logingenie.UserName.setValue(variables.Validusername);
 });
-//valid6
+//valid8
 
 Then(/^user enters Valid password$/,async () => {
     await Timeouts.waitTime(); 
