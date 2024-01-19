@@ -3,13 +3,13 @@ const logingenie = require('../pageobjects/logingenie.page');
  const Timeouts = require('../pageobjects/Timeouts.page');
  const variables= require('../variables/credentials.json');
  const cucumberJson = require("wdio-cucumberjs-json-reporter");
-//1
+//invalid1
 Given(/^user is on the genie login page$/, async() => {
    await logingenie.WebPage();
    await Timeouts.waitTime(); 
     await browser.maximizeWindow();
 });
-Then(/^user click on the login and register$/, async() => {
+When(/^user click on the login and register$/, async() => {
     await Timeouts.waitTime(); 
    await logingenie.LoginAndRegister.moveTo();
 });
@@ -39,11 +39,12 @@ Then(/^user verify the error message$/,async () => {
     console.log(await logingenie.ErrorMassage.getText());
     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
 });
+//forgotpassword4
 When(/^User click on forgot password button$/,async () => {
     await Timeouts.waitTime(); 
     await logingenie.ForgotPassword.click();
 });
-Then(/^User enter the Reset password page verfy it$/, async() => {
+Then(/^User enter the Reset password page$/, async() => {
     await Timeouts.waitTime(); 
    console.log( await logingenie.RestPage.getText());
    
@@ -65,6 +66,7 @@ Then(/^user enters the invalid email at below 5 characters$/, async() => {
    
 });
 
+
 Then(/^user click on the reset button and verify it$/,async () => {
 	await Timeouts.waitTime();
     await logingenie.Resetpassword.click();
@@ -84,7 +86,8 @@ Then(/^user click on the resrt password and verify it$/,async () => {
     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
 });
 
-Then(/^user enter the Reset Email$/, async() => {
+
+Then(/^user enters the invalid email and verify it$/,async () => {
     await Timeouts.waitTime(); 
     await logingenie.ResetEmail.setValue(variables.ResetPassword);
     await Timeouts.waitTime(); 
@@ -96,7 +99,7 @@ Then(/^user enter the Reset Email$/, async() => {
     await browser.back();
 	
 });
-
+//registernewaccount5
 When(/^User click on the register$/, async() => {
     await Timeouts.waitTime(); 
     await logingenie.Login.moveTo();
@@ -112,13 +115,13 @@ Then(/^User enter on Caregiver Registration page verify it$/,async () => {
   cucumberJson.attach(await browser.takeScreenshot(), 'image/png'); 
   await browser.back();
 });
-//2
+//validusername2
 
 Then(/^user enters the Valid user name$/,async () => {
     await Timeouts.waitTime(); 
     await logingenie.UserName.setValue(variables.Validusername);
 });
-//4
+//valid6
 
 Then(/^user enters Valid password$/,async () => {
     await Timeouts.waitTime(); 
