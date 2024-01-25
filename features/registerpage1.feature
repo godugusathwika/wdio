@@ -36,6 +36,8 @@ Feature: Verify the genie register Functionality
   When user click on the password without entering the password field
   When user click on the confirm password field
   Then verify the password field error message
+  When user enter the password below 4 characters
+  Then verify the password field error message
   And user enters the password above 50 characters
   Then verify the password field error message
   When user enters the valid password
@@ -46,6 +48,8 @@ Feature: Verify the genie register Functionality
   And user click on the first name field
   Then user verify the confirm password error message
   When user enters the incorrect confirm password
+  Then user verify the confirm password error message
+  When user enters the confirm password below 4 characters
   Then user verify the confirm password error message
   When user again enters the confirm password above 50 characters
 Then user verify the confirm password error message
@@ -122,7 +126,26 @@ When user select the PreferredRecruiter
 Scenario:user verify the note recruiter field
 When user enter the note to recruiter
 Then verify the error note message
+When user enters the below 1000 characters
+Then verify the error note message
 When user click on the Compact License checkbox
+
+@RegisterButton 
+Scenario:user verify the register button 
+When user click on the register burron 
+Then user navigate to new page verify it 
+When user go back to regissster page
+When User click on the login and register
+When User click on Register a new account
+When user enters the valid email
+ When user click on the phone number field
+Then user verify the email error message
+ 
+
+
+
+
+
 
  #@resumefield
  #Scenario:user upload the resumefield

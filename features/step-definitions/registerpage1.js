@@ -28,9 +28,11 @@ When(/^User click on Register a new account$/, async() => {
 When(/^user click on the email without entering information in the email field$/,async () => {
     await Timeouts.waitTime();
     await registerpage1.Email.click()
+    
 });
  
-When(/^user click on the phone number field$/, async() => {
+
+When(/^user click on the phone number field$/,async () => {
     await Timeouts.waitTime();
     await registerpage1.Phonenumber.click();
  
@@ -46,32 +48,17 @@ When(/^user enters the email below 5characters$/, async() => {
     await Timeouts.waitTime();
     await registerpage1.Email.setValue(variables.emailA);
 });
- 
-// Then(/^user verify the email error message$/, async() => {
-//     await Timeouts.waitTime();
-//     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
-// });
- 
+
 When(/^user enters the email above 100characters$/,async () => {
     await Timeouts.waitTime();
    await registerpage1.Email.setValue(variables.emailB);
 });
- 
-// Then(/^user verify the email error message$/, async() => {
-//     await Timeouts.waitTime();
-//     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
-// });
  
 When(/^User enters the email using space$/, async() => {
     await Timeouts.waitTime();
     await registerpage1.Email.setValue(variables.emailC);
  
 });
- 
-// Then(/^user verify the email error message$/, async() => {
-//     await Timeouts.waitTime();
-//     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
-// });
  
 When(/^user enters the valid email$/, async() => {
     await Timeouts.waitTime();
@@ -102,29 +89,16 @@ When(/^user enters the phone number above 10 characters$/, async() => {
     await registerpage1.Phonenumber.setValue(variables.phonenumberA);
 });
  
-// Then(/^verify the  phonenumber error message$/, async() => {
-//     await Timeouts.waitTime();
-//     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
-// });
- 
 When(/^user enters the phone number above 20 characters$/,async () => {
     await Timeouts.waitTime();
     await registerpage1.Phonenumber.setValue(variables.phonenumberB);
 });
  
-// Then(/^verify the  phonenumber error message$/, async() => {
-//     await Timeouts.waitTime();
-//     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
-// });
- 
 When(/^user enter the phonenumber using the space$/, async() => {
     await Timeouts.waitTime();
 await registerpage1.Phonenumber.setValue(variables.phonenumberC);
 });
- 
-// Then(/^verify the  phonenumber error message$/, () => {
-//  return true;
-// });
+
  
 When(/^user enters the valid mobile number$/, async() => {
      await Timeouts.waitTime();
@@ -153,15 +127,16 @@ Then(/^verify the password field error message$/,async () => {
 
 });
 
+When(/^user enter the password below 4 characters$/, async() => {
+    await Timeouts.waitTime();
+	await registerpage1.Password.setValue(variables.password2);
+});
+
+
 Then(/^user enters the password above 50 characters$/,async () => {
     await Timeouts.waitTime();
     await registerpage1.Password.setValue(variables.passwordB);
 });
-
-// Then(/^verify the password field error message$/,async () => {
-//     await Timeouts.waitTime();
-// });
-
 When(/^user enters the valid password$/,async () => {
     await Timeouts.waitTime();
     await registerpage1.Password.setValue(variables.passwordA);
@@ -189,19 +164,16 @@ When(/^user enters the incorrect confirm password$/,async () => {
     await registerpage1.ConfirmPassword.setValue(variables.confirmpasswordA);
 });
 
-// Then(/^user verify the confirm password error message$/,async () => {
-//     await Timeouts.waitTime();
-// });
+When(/^user enters the confirm password below 4 characters$/,async () => {
+	await Timeouts.waitTime();
+    await registerpage1.ConfirmPassword.setValue(variables.confirmpassword2);
+});
 
 When(/^user again enters the confirm password above 50 characters$/,async () => {
     await Timeouts.waitTime();
     await registerpage1.ConfirmPassword.setValue(variables.confirmpasswordB);
 
 });
-
-// Then(/^user verify the confirm password error message$/,async () => {
-//     await Timeouts.waitTime();
-// });
 
 When(/^user enters the correct confirm password$/,async () => {
     await Timeouts.waitTime();
@@ -231,10 +203,6 @@ When(/^user enters the first name above 100 characters$/,async () => {
     await registerpage1.Firstname.setValue(variables.firstnameA);
 });
 
-// Then(/^verify the firstname field error massage$/,async () => {
-//     await Timeouts.waitTime();
-// });
-
 When(/^user enters the correct firstname$/,async () => {
     await Timeouts.waitTime();
     await registerpage1.Firstname.setValue(variables.firstnameB);
@@ -261,10 +229,6 @@ When(/^user enters the last name above 100 characters$/,async () => {
     await Timeouts.waitTime();
     await registerpage1.Lastname.setValue(variables.lastnameA);
 });
-
-// Then(/^verify the lastname field error massage$/,async () => {
-//     await Timeouts.waitTime();
-// });
 
 When(/^user enters the correct lastname$/,async () => {
     await Timeouts.waitTime();
@@ -438,6 +402,12 @@ When(/^user enter the note to recruiter$/, async() => {
     // }
 });
 
+When(/^user enters the below 1000 characters$/, async() => {
+	await Timeouts.waitTime();
+    await registerpage1.Noterecruiter.setValue(variables.NoteRecruter);
+});
+
+
 Then(/^verify the error note message$/,async () => {
 	await Timeouts.waitTime();
     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
@@ -448,8 +418,27 @@ When(/^user click on the Compact License checkbox$/,async () => {
 	await Timeouts.waitTime();
     await registerpage1.Compactlicense.click();
     cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
-    
 });
+
+When(/^user click on the register burron$/,async () => {
+	await Timeouts.waitTime();
+    await registerpage1.Registerbutton.click();
+});
+
+Then(/^user navigate to new page verify it$/, async() => {
+	await Timeouts.waitTime();
+    cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
+
+});
+
+
+When(/^user go back to regissster page$/, async() => {
+	await Timeouts.waitTime();
+    await browser.back();
+});
+
+
+
 
 // When(/^user click on the rusume and upload the resume$/, async() => {
 // 	// await registerpage1.Resume.click();
@@ -457,6 +446,8 @@ When(/^user click on the Compact License checkbox$/,async () => {
 // const filePath = registerpage1.Resume.join(__dirname, '"C:\Users\Sathwika\Documents\Sathwika@123.pdf"');
 // fileUpload.setValue(filePath);
 // });
+
+
 
 
 

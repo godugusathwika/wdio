@@ -97,8 +97,19 @@ class registerpage{
    get recruiter(){
      return $("//select[@name='recruiterProfile']");
    }
+   get Registerbutton(){
+    // return $("//button[normalize-space()='Register']");
+    // return $("(//button[@disabled='disabled'])[1]")
+    return $("(//button[@type='submit'])[1]");
+   }
    get Resume(){
-    return $("//button[normalize-space()='Upload Resume']");
+    return $("//button[@ng-show='!vm.hasCandidateAuthority']");
+   }
+   get Email1(){
+    return $("//input[@placeholder='First Name']");
+   }
+   get spaceclick(){
+    return $("(//div[@class='container genie-form-container text-center'])[2]")
    }
 
 
