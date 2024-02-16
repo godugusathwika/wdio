@@ -10,7 +10,7 @@ Given(/^user is on the genie job page$/,async () => {
 });
 
 Then(/^click on the login and register$/, async() => {
-	await browser.pause(2000);
+	await browser.pause(-2000);
     await RegisterPage.loginandregister.moveTo();
 });
 
